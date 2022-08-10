@@ -7,7 +7,7 @@ function App() {
   let [city, setCity] = useState("Hanoi");
   let urlApi = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   let [currentWeather, setCurrentWeather] = useState([]);
-  let [weatherForecast, setWeatherForecast] = useState([]);
+
   let forecast = [
     {
       day: "Sat",
@@ -46,16 +46,16 @@ function App() {
     },
   ];
 
-  function showWeatherForecast(response) {
-    console.log(response.data.daily);
-    setWeatherForecast([
-      Math.round(response.data.daily.pop * 100),
-      `http://openweathermap.org/img/wn/${response.data.daily.weather[0].icon}@2x.png`,
-      response.data.daily.weather[0].description,
-      Math.round(response.data.daily.temp.max),
-      Math.round(response.data.daily.temp.min),
-    ]);
-  }
+  // function showWeatherForecast(response) {
+  // console.log(response.data.daily);
+  // setWeatherForecast([
+  // Math.round(response.data.daily.pop * 100),
+  // `http://openweathermap.org/img/wn/${response.data.daily.weather[0].icon}@2x.png`,
+  // response.data.daily.weather[0].description,
+  // Math.round(response.data.daily.temp.max),
+  // Math.round(response.data.daily.temp.min),
+  // ]);
+  // }
 
   function showCurrentWeather(response) {
     setCurrentWeather([
@@ -68,8 +68,8 @@ function App() {
     ]);
 
     // Get API & call for weather forecast
-    let apiForecastUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&appid=${apiKey}&units=metric`;
-    axios.get(apiForecastUrl).then(showWeatherForecast);
+    // let apiForecastUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&appid=${apiKey}&units=metric`;
+    // axios.get(apiForecastUrl).then(showWeatherForecast);
   }
 
   if (currentWeather.length === 0) {
@@ -147,7 +147,10 @@ function App() {
       </ul>
 
       <footer>
-        <a href="">Open-source code</a>, by Mai TP from SheCodes
+        <a href="https://www.shecodes.io/learn/workshops/765/units/33/lessons/186">
+          Open-source code
+        </a>
+        , by Mai TP from SheCodes
       </footer>
     </div>
   );

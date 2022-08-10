@@ -147,10 +147,13 @@ function App() {
       </ul>
 
       <footer>
-        <a href="https://www.shecodes.io/learn/workshops/765/units/33/lessons/186">
+        <a href="https://github.com/maitrp/weather-app-react" target="_blank">
           Open-source code
         </a>
-        , by Mai TP from SheCodes
+        , by Mai TP from{" "}
+        <a href="https://www.shecodes.io" target="_blank">
+          SheCodes
+        </a>
       </footer>
     </div>
   );

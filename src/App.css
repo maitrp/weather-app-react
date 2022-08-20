@@ -105,12 +105,12 @@
   text-transform: capitalize;
 }
 
-.App .forecast {
+.App .Forecast {
   display: flex;
   justify-content: space-evenly;
 }
 
-.App .forecast li {
+.App .Forecast li {
   background-color: white;
 }
 

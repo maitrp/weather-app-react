@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import WeatherForecast from "./WeatherForecast";
+import Forecast from "./Forecast";
 import FormattedDate from "./FormattedDate";
 import TemperatureUnit from "./TemperatureUnit";
 import "./App.css";
@@ -12,15 +12,16 @@ export default function App() {
   let [currentWeather, setCurrentWeather] = useState([]);
 
   function showCurrentWeather(response) {
-    setCurrentWeather([
-      Math.round(response.data.main.temp),
-      response.data.main.humidity,
-      Math.round(response.data.wind.speed * 3.6),
-      response.data.weather[0].description,
-      `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
-      response.data.name,
-      response.data.timezone,
-    ]);
+    setCurrentWeather({
+      temperature: Math.round(response.data.main.temp),
+      humidity: response.data.main.humidity,
+      wind: Math.round(response.data.wind.speed * 3.6),
+      description: response.data.weather[0].description,
+      icon: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
+      city: response.data.name,
+      timezone: response.data.timezone,
+      coord: response.data.coord,
+    });
   }
 
   if (currentWeather.length === 0) {
@@ -75,12 +76,12 @@ export default function App() {
       <div className="current-weather">
         <div className="current-icon-temperature d-flex">
           <img
-            src={currentWeather[4]}
+            src={currentWeather.icon}
             width="50"
-            alt={currentWeather[3]}
+            alt={currentWeather.description}
             className="current-icon"
           />
-          <TemperatureUnit unit={currentWeather[0]} />
+          <TemperatureUnit unit={currentWeather.temperature} />
         </div>
         <div className="current-details">
           <ul>
@@ -88,23 +89,23 @@ export default function App() {
           <span>81%</span> */}
             <li className="d-flex">
               <img src="humidity.svg" width="30" alt="humidity icon" />
-              <span>{currentWeather[1]}%</span>
+              <span>{currentWeather.humidity}%</span>
             </li>
             <li>
-              <div>Wind: {currentWeather[2]} km/h</div>
+              <div>Wind: {currentWeather.wind} km/h</div>
             </li>
             {/*<div>UV Index: 0, Low</div> */}
           </ul>
         </div>
         <div className="city-time">
-          <div>{currentWeather[5]}</div>
+          <div>{currentWeather.city}</div>
           <div>
-            <FormattedDate timezone={currentWeather[6]} />
+            <FormattedDate timezone={currentWeather.timezone} />
           </div>
-          <div className="description">{currentWeather[3]}</div>
+          <div className="description">{currentWeather.description}</div>
         </div>
       </div>
-      <WeatherForecast />
+      <Forecast coord={currentWeather.coord} />
       <footer>
         <a
           href="https://github.com/maitrp/weather-app-react"

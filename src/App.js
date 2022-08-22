@@ -24,10 +24,6 @@ export default function App() {
     });
   }
 
-  if (currentWeather.length === 0) {
-    axios.get(urlApi).then(showCurrentWeather);
-  }
-
   function handleSubmit(event) {
     event.preventDefault();
     axios.get(urlApi).then(showCurrentWeather);
@@ -48,81 +44,86 @@ export default function App() {
     navigator.geolocation.getCurrentPosition(showPosition);
   }
 
-  return (
-    <div className="App">
-      <div className="search-bar">
-        <form onSubmit={handleSubmit} className="d-flex">
-          <input
-            type="search"
-            placeholder="Enter a city to search"
-            className="search-input"
-            onChange={searchCity}
-          />
+  if (currentWeather.length === 0) {
+    axios.get(urlApi).then(showCurrentWeather);
+    return "Loading";
+  } else {
+    return (
+      <div className="App">
+        <div className="search-bar">
+          <form onSubmit={handleSubmit} className="d-flex">
+            <input
+              type="search"
+              placeholder="Enter a city to search"
+              className="search-input"
+              onChange={searchCity}
+            />
+            <button
+              type="submit"
+              className="material-symbols-outlined pulse search-submit"
+            >
+              Search
+            </button>
+          </form>
           <button
             type="submit"
-            className="material-symbols-outlined pulse search-submit"
+            className="location-button"
+            onClick={showLocation}
           >
-            Search
+            My location
           </button>
-        </form>
-        <button
-          type="submit"
-          className="location-button"
-          onClick={showLocation}
-        >
-          My location
-        </button>
-      </div>
-      <div className="current-weather">
-        <div className="current-icon-temperature d-flex">
-          <img
-            src={currentWeather.icon}
-            width="50"
-            alt={currentWeather.description}
-            className="current-icon"
-          />
-          <TemperatureUnit unit={currentWeather.temperature} />
         </div>
-        <div className="current-details">
-          <ul>
-            {/* <img src="precipitation.svg" width="25" alt="precipitation icon" />
-          <span>81%</span> */}
-            <li className="d-flex">
-              <img src="humidity.svg" width="30" alt="humidity icon" />
-              <span>{currentWeather.humidity}%</span>
-            </li>
-            <li>
-              <div>Wind: {currentWeather.wind} km/h</div>
-            </li>
-            {/*<div>UV Index: 0, Low</div> */}
-          </ul>
-        </div>
-        <div className="city-time">
-          <div>{currentWeather.city}</div>
-          <div>
-            <FormattedDate timezone={currentWeather.timezone} />
+        <div className="current-weather">
+          <div className="current-icon-temperature d-flex">
+            <img
+              src={currentWeather.icon}
+              width="50"
+              alt={currentWeather.description}
+              className="current-icon"
+            />
+            <TemperatureUnit unit={currentWeather.temperature} />
           </div>
-          <div className="description">{currentWeather.description}</div>
+          <div className="current-details">
+            <ul>
+              {/* <img src="precipitation.svg" width="25" alt="precipitation icon" />
+          <span>81%</span> */}
+              <li className="d-flex">
+                <img src="humidity.svg" width="30" alt="humidity icon" />
+                <span>{currentWeather.humidity}%</span>
+              </li>
+              <li>
+                <div>Wind: {currentWeather.wind} km/h</div>
+              </li>
+              {/*<div>UV Index: 0, Low</div> */}
+            </ul>
+          </div>
+          <div className="city-time">
+            <div>{currentWeather.city}</div>
+            <div>
+              <FormattedDate timezone={currentWeather.timezone} />
+            </div>
+            <div className="description">{currentWeather.description}</div>
+          </div>
         </div>
+        <Forecast coord={currentWeather.coord} />
+        <footer>
+          <a
+            href="https://github.com/maitrp/weather-app-react"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Open-source code
+          </a>
+          , by Mai TP from{" "}
+          <a
+            href="https://www.shecodes.io"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            SheCodes
+          </a>
+        </footer>
       </div>
-      <Forecast coord={currentWeather.coord} />
-      <footer>
-        <a
-          href="https://github.com/maitrp/weather-app-react"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Open-source code
-        </a>
-        , by Mai TP from{" "}
-        <a
-          href="https://www.shecodes.io"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          SheCodes
-        </a>
-      </footer>
-    </div>
-  );
+    );
+  }
 }

@@ -1,7 +1,9 @@
 .App {
-  background: rgb(240, 255, 252, 0.9);
-  border: 1px solid gray;
+  background: rgb(240, 255, 252, 0.7);
+  border: 1px solid lightgray;
   border-radius: 1em;
+  box-shadow: var(--box-shadow);
+  color: var(--primary-color);
   max-width: min(650px, 95%);
   margin: 5rem auto;
 }
@@ -95,6 +97,11 @@
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+.App .humidity {
+  filter: invert(63%) sepia(77%) saturate(3350%) hue-rotate(360deg)
+    brightness(103%) contrast(106%);
 }
 
 .App .city-time {

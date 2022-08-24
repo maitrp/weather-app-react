@@ -1,13 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
+import "./Forecast.css";
 
 export default function Forecast(props) {
   let [loaded, setLoaded] = useState(false);
   let [weatherForecast, setWeatherForecast] = useState([]);
 
+  useEffect(() => {
+    setLoaded(false);
+  }, [props.coord]);
+
   function showWeatherForecast(response) {
-    setLoaded(true);
     setWeatherForecast(response.data.daily);
+    setLoaded(true);
   }
 
   function day(forecastDay) {
@@ -17,7 +22,6 @@ export default function Forecast(props) {
 
     return days[day];
   }
-
   if (loaded) {
     return (
       <ul className="Forecast">
@@ -30,7 +34,7 @@ export default function Forecast(props) {
                 alt="precipitation icon"
                 width="25"
               ></img>
-              {dailyForecast.pop * 100}
+              {Math.round(dailyForecast.pop * 100)}%
               <div>
                 <img
                   src={`http://openweathermap.org/img/wn/${dailyForecast.weather[0].icon}@2x.png`}

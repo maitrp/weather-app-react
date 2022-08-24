@@ -88,7 +88,12 @@ export default function App() {
               {/* <img src="precipitation.svg" width="25" alt="precipitation icon" />
           <span>81%</span> */}
               <li className="d-flex">
-                <img src="humidity.svg" width="30" alt="humidity icon" />
+                <img
+                  src="humidity.svg"
+                  width="30"
+                  alt="humidity icon"
+                  className="humidity"
+                />
                 <span>{currentWeather.humidity}%</span>
               </li>
               <li>

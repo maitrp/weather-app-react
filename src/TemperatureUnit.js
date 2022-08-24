@@ -4,11 +4,6 @@ import "./TemperatureUnit.css";
 export default function TemperatureUnit(props) {
   let [unit, setUnit] = useState("celsius");
 
-  function showFahrenheit(event) {
-    event.preventDefault();
-    setUnit("fahrenheit");
-  }
-
   function showCelsius(event) {
     event.preventDefault();
     setUnit("celsius");
@@ -18,22 +13,16 @@ export default function TemperatureUnit(props) {
     return (
       <span className="TemperatureUnit">
         <span className="current-temperature">{props.unit}</span>{" "}
-        <span>°C</span> |{" "}
-        <a href="/" onClick={showFahrenheit}>
-          °F
-        </a>
+        <span className="unit">°C</span>
       </span>
     );
   } else {
     return (
       <span>
-        <span className="current-temperature">
-          {Math.round((props.unit * 9) / 5 + 32)}
-        </span>{" "}
-        <a href="/" onClick={showCelsius}>
+        <span className="current-temperature">{Math.round(props.unit)}</span>{" "}
+        <a href="/" onClick={showCelsius} className="unit">
           °C
-        </a>{" "}
-        |<span> °F</span>
+        </a>
       </span>
     );
   }
